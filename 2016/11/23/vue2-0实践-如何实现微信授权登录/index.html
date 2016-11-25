@@ -1,0 +1,891 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="vue,前端,原创,js,微信开发," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="基于vue前端框架开发的spa单页应用如何实现的微信授权登录，本身技术并不是很复杂，这里只是提供一个思想，后面并会贴上代码。
+
+业务流程介绍。我们首先需要对微信授权登录有一定的了解，如果对业务流程还不太了解的可以先去微信公众号开放平台看下官网的文档.点击链接查看">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原创vue2.0实践-实现微信授权登录">
+<meta property="og:url" content="http://www.hgcv5.com/2016/11/23/vue2-0实践-如何实现微信授权登录/index.html">
+<meta property="og:site_name" content="黄国才个人博客">
+<meta property="og:description" content="基于vue前端框架开发的spa单页应用如何实现的微信授权登录，本身技术并不是很复杂，这里只是提供一个思想，后面并会贴上代码。
+
+业务流程介绍。我们首先需要对微信授权登录有一定的了解，如果对业务流程还不太了解的可以先去微信公众号开放平台看下官网的文档.点击链接查看">
+<meta property="og:image" content="http://blogimg.gxxblw.com/hgcv5_snsapi_baseweixinlogin_20161113.jpg">
+<meta property="og:image" content="http://blogimg.gxxblw.com/hgcv5_wexin_snsapi_userinfo20161123.jpg">
+<meta property="og:image" content="http://blogimg.gxxblw.com/hgcv5_20161123220534.png">
+<meta property="og:updated_time" content="2016-11-25T00:47:03.768Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="原创vue2.0实践-实现微信授权登录">
+<meta name="twitter:description" content="基于vue前端框架开发的spa单页应用如何实现的微信授权登录，本身技术并不是很复杂，这里只是提供一个思想，后面并会贴上代码。
+
+业务流程介绍。我们首先需要对微信授权登录有一定的了解，如果对业务流程还不太了解的可以先去微信公众号开放平台看下官网的文档.点击链接查看">
+<meta name="twitter:image" content="http://blogimg.gxxblw.com/hgcv5_snsapi_baseweixinlogin_20161113.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.hgcv5.com/2016/11/23/vue2-0实践-如何实现微信授权登录/"/>
+
+
+
+
+
+  <title> 原创vue2.0实践-实现微信授权登录 | 黄国才个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?25ac8a6a9cb84b5389e89702c4c9e8ba";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1257514458&web_id=1257514458" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">黄国才个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">啊哈哈</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://www.hgcv5.com/2016/11/23/vue2-0实践-如何实现微信授权登录/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="黄国才">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://hotimg.esh1.com/FvPHO32SuR5vxh8vu3JsSJSLLLlF">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="黄国才个人博客">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="黄国才个人博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                原创vue2.0实践-实现微信授权登录
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-23T22:40:18+08:00">
+                2016-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2016/11/23/vue2-0实践-如何实现微信授权登录/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/23/vue2-0实践-如何实现微信授权登录/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/11/23/vue2-0实践-如何实现微信授权登录/" class="leancloud_visitors" data-flag-title="原创vue2.0实践-实现微信授权登录">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>基于vue前端框架开发的spa单页应用如何实现的微信授权登录，本身技术并不是很复杂，这里只是提供一个思想，后面并会贴上代码。</p>
+</blockquote>
+<h2 id="业务流程介绍。"><a href="#业务流程介绍。" class="headerlink" title="业务流程介绍。"></a>业务流程介绍。</h2><p>我们首先需要对微信授权登录有一定的了解，如果对业务流程还不太了解的可以先去微信公众号开放平台看下官网的文档.<a href="https://mp.weixin.qq.com/wiki" target="_blank" rel="external">点击链接查看</a></p>
+<a id="more"></a>
+<h3 id="snsapi-base"><a href="#snsapi-base" class="headerlink" title="snsapi_base"></a>snsapi_base</h3><p>snsapi_base使用场景，我大概的理解，是仅需要标示用户，而不需要获取用户其他信息，他对用户来说基本无感知(不知情下完成授权)例如，我仅需要知道是哪位用户，但是我不需要知道他的头像和昵称，我在这里对snsapi_base画出一个简单的业务图，方便大家了解<br><img src="http://blogimg.gxxblw.com/hgcv5_snsapi_baseweixinlogin_20161113.jpg" alt="snsapi_base业务图"></p>
+<p>由上图大致流程就是，我们需要向服务器，获取一个授权链接的url(也可以在本地拼接)<br>注：该业务主要是针对snsapi_base情况下登录，如果为snsapi_userinfo情况就会稍微复杂：</p>
+<h3 id="snsapi-userinfo"><a href="#snsapi-userinfo" class="headerlink" title="snsapi_userinfo"></a>snsapi_userinfo</h3><p>snsapi_userinfo,对比<code>snsapi_base</code>可以获取更多信息，包括开放平台下对用户唯一的标示id-&gt;<code>unionid</code>(当你拥有app,小程序，公众号需要对用户进行唯一标示时，需要到此字段，详细查看微信文档)</p>
+<p>snsapi_userinfo大致流程会比上面多一些。因为通过<code>snsapi_base</code>仅能拿到openid，对于我的业务已经足够了，如果你需要获取详细的用户资料与<code>unionid</code>会比<code>snsapi_base</code>授权多了一次授权过程，至于为什么要这么做我稍后会跟大家解释。<br><img src="http://blogimg.gxxblw.com/hgcv5_wexin_snsapi_userinfo20161123.jpg" alt="snsapi_userinfo业务图"></p>
+<p>细心的朋友会发现，下面未登录的逻辑不就是从复上面的步骤吗？是的，仅仅只是授权类型不同，但是为什么我不全部都使用<code>snsapi_userinfo</code>直接进行授权登录?其实这是为了更好的用户体验。因为当你第二次调用<code>snsapi_userinfo</code>授权登录时候总会出现图3的界面，对用户来说总是不友好，但是使用<code>snsapi_base</code>接口拿到openid后自行判断是否需要去授权获取信息。</p>
+<p>图3<br><img src="http://blogimg.gxxblw.com/hgcv5_20161123220534.png" alt="体验不友好微信登录"></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>上面花了很多时间介绍微信登录的流程，其实，当你理解他的业务流程后，编写代码就不再困难。</p>
+<p>利用vue的生命周期方法，我们可以很好的完成一个spa微信授权登录，我们仅需要当用户打开页面，判断是否登录过，当登录过并且未过期，我们可以直接使用之前存储的数据进行通信。当未登录时候发起授权登录。</p>
+<p>注：vue生命周期可到官网看文档，文档很全，我们主要在<code>mounted</code>中进行业务操作。此方法会在模板挂载后自行调用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> url <span class="keyword">from</span> <span class="string">"urlparser"</span>;</div><div class="line"><span class="keyword">import</span> &#123;set, get, remove&#125; <span class="keyword">from</span> <span class="string">'store5'</span>;</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'app'</span>,</div><div class="line">  data () &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      <span class="attr">msg</span>: <span class="string">'哈根达斯-黄国才个人博客'</span></div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">mounted</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">     <span class="comment">//微信授权逻辑</span></div><div class="line">     <span class="keyword">var</span> data= url.parse(<span class="built_in">document</span>.URL);</div><div class="line">     <span class="keyword">var</span> user=get(<span class="string">'user'</span>);</div><div class="line">     <span class="keyword">if</span>(user)&#123;</div><div class="line">       <span class="comment">//已经登录过，并且登录信息未过期</span></div><div class="line">     &#125;<span class="keyword">else</span> <span class="keyword">if</span>(data.query &amp;&amp; data.query.params &amp;&amp; data.query.params.code)&#123;</div><div class="line">        <span class="comment">//授权回调并发起登录请求</span></div><div class="line">        <span class="keyword">this</span>.$http.get(<span class="string">'http://youthost?code='</span>+data.query.params.code)</div><div class="line">          .then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</div><div class="line">            <span class="comment">//返回登录后的信息</span></div><div class="line">            <span class="keyword">if</span>(res.isRegister)&#123;</div><div class="line">              <span class="built_in">window</span>.location = <span class="comment">//snsapi_userinfo授权登录链接;</span></div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">              <span class="comment">//登录成功</span></div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">     &#125;<span class="keyword">else</span>&#123;</div><div class="line">       <span class="comment">//获取授权跳转链接</span></div><div class="line">       <span class="keyword">this</span>.$http.get(<span class="string">'http://youthost'</span>)</div><div class="line">          .then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</div><div class="line">           <span class="built_in">window</span>.location = res.body.url;</div><div class="line">        &#125;);</div><div class="line">     &#125;</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">methods</span>:&#123;</div><div class="line">    <span class="attr">getinfo</span>:<span class="function"><span class="keyword">function</span> (<span class="params">code</span>) </span>&#123;</div><div class="line">      <span class="comment">//获取用户信息</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>以上代码中使用到了依赖包package.json配置<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">"dependencies": &#123;</div><div class="line">  "store5": "^1.0.3",//store存储</div><div class="line">  "urlparser": "^0.3.9",//路径解析</div><div class="line">  "vue": "^2.0.1",//核心包</div><div class="line">  "vue-resource": "^1.0.3",//请求</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>后面有时间会从项目中整理一份代码放到githut上。请随时关注我的博客。扫二维码可随便了解博客动态</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/hgcv.jpg" alt="黄国才 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎关注我的微信订阅号，每天给您推送优质的原创文章</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixinpay.png" alt="黄国才 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/alipay.png" alt="黄国才 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+            <a href="/tags/原创/" rel="tag"># 原创</a>
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+            <a href="/tags/微信开发/" rel="tag"># 微信开发</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/23/微信小程序-爬坑之旅https-TLSv1-2-2016-22-23/" rel="next" title="原创微信小程序-爬坑之旅(一)网络请求https-TLSv1.2">
+                <i class="fa fa-chevron-left"></i> 原创微信小程序-爬坑之旅(一)网络请求https-TLSv1.2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/24/2016/2016-11-24-android-安卓代码规范草稿/" rel="prev" title="Android-安卓代码规范草稿">
+                Android-安卓代码规范草稿 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/23/vue2-0实践-如何实现微信授权登录/"
+           data-title="原创vue2.0实践-实现微信授权登录" data-url="http://www.hgcv5.com/2016/11/23/vue2-0实践-如何实现微信授权登录/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://hotimg.esh1.com/FvPHO32SuR5vxh8vu3JsSJSLLLlF"
+               alt="黄国才" />
+          <p class="site-author-name" itemprop="name">黄国才</p>
+          <p class="site-description motion-element" itemprop="description">漫步向前的小前端</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/h31639347" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/u/1736558022" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://zhihu.com/people/hgcv5" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://git.oschina.net/hgcv5" target="_blank" title="oschina">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  oschina
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#业务流程介绍。"><span class="nav-number">1.</span> <span class="nav-text">业务流程介绍。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#snsapi-base"><span class="nav-number">1.1.</span> <span class="nav-text">snsapi_base</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#snsapi-userinfo"><span class="nav-number">1.2.</span> <span class="nav-text">snsapi_userinfo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">1.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">黄国才</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hgds"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("xVjGzFfI2aXAh5yma5LxEkHR-gzGzoHsz", "IXb1dyp6xiz5DGGmWYgOijzV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,1179 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="android,代码规范," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="一份个人整理的代码规范，已投入公司内部使用，可以根据自己的需要下载下来进行改写
+
+文件命名规范java类与接口文件
+
+
+类型
+规则
+示例
+备注
+
+
+
+
+Activity
+**Activity.java
+HomeActivity.java
+-
+
+
+Fragment
+**Fragment.java
+NewFragment.java
+-
+
+
+Adapter
+**Adapter.java
+NewsAda">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-安卓代码规范草稿">
+<meta property="og:url" content="http://www.hgcv5.com/2016/11/24/2016/2016-11-24-android-安卓代码规范草稿/index.html">
+<meta property="og:site_name" content="黄国才个人博客">
+<meta property="og:description" content="一份个人整理的代码规范，已投入公司内部使用，可以根据自己的需要下载下来进行改写
+
+文件命名规范java类与接口文件
+
+
+类型
+规则
+示例
+备注
+
+
+
+
+Activity
+**Activity.java
+HomeActivity.java
+-
+
+
+Fragment
+**Fragment.java
+NewFragment.java
+-
+
+
+Adapter
+**Adapter.java
+NewsAda">
+<meta property="og:updated_time" content="2016-11-25T00:47:03.768Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android-安卓代码规范草稿">
+<meta name="twitter:description" content="一份个人整理的代码规范，已投入公司内部使用，可以根据自己的需要下载下来进行改写
+
+文件命名规范java类与接口文件
+
+
+类型
+规则
+示例
+备注
+
+
+
+
+Activity
+**Activity.java
+HomeActivity.java
+-
+
+
+Fragment
+**Fragment.java
+NewFragment.java
+-
+
+
+Adapter
+**Adapter.java
+NewsAda">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.hgcv5.com/2016/11/24/2016/2016-11-24-android-安卓代码规范草稿/"/>
+
+
+
+
+
+  <title> Android-安卓代码规范草稿 | 黄国才个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?25ac8a6a9cb84b5389e89702c4c9e8ba";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1257514458&web_id=1257514458" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">黄国才个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">啊哈哈</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://www.hgcv5.com/2016/11/24/2016/2016-11-24-android-安卓代码规范草稿/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="黄国才">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://hotimg.esh1.com/FvPHO32SuR5vxh8vu3JsSJSLLLlF">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="黄国才个人博客">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="黄国才个人博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android-安卓代码规范草稿
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-24T16:22:00+08:00">
+                2016-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2016/11/24/2016/2016-11-24-android-安卓代码规范草稿/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/24/2016/2016-11-24-android-安卓代码规范草稿/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/11/24/2016/2016-11-24-android-安卓代码规范草稿/" class="leancloud_visitors" data-flag-title="Android-安卓代码规范草稿">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>一份个人整理的代码规范，已投入公司内部使用，可以根据自己的需要下载下来进行改写</p>
+</blockquote>
+<h1 id="文件命名规范"><a href="#文件命名规范" class="headerlink" title="文件命名规范"></a>文件命名规范</h1><h3 id="java类与接口文件"><a href="#java类与接口文件" class="headerlink" title="java类与接口文件"></a>java类与接口文件</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:center">规则</th>
+<th style="text-align:right">示例</th>
+<th style="text-align:right">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Activity</td>
+<td style="text-align:center">**Activity.java</td>
+<td style="text-align:right">HomeActivity.java</td>
+<td style="text-align:right">-</td>
+</tr>
+<tr>
+<td>Fragment</td>
+<td style="text-align:center">**Fragment.java</td>
+<td style="text-align:right">NewFragment.java</td>
+<td style="text-align:right">-</td>
+</tr>
+<tr>
+<td>Adapter</td>
+<td style="text-align:center">**Adapter.java</td>
+<td style="text-align:right">NewsAdapter.java</td>
+<td style="text-align:right">-</td>
+</tr>
+<tr>
+<td>Service</td>
+<td style="text-align:center">**Service.java</td>
+<td style="text-align:right">UpdateService.java</td>
+<td style="text-align:right">-</td>
+</tr>
+<tr>
+<td>Broadcast</td>
+<td style="text-align:center">**Broadcast.java</td>
+<td style="text-align:right">MessageBroadcast.java</td>
+<td style="text-align:right">-</td>
+</tr>
+<tr>
+<td>Interface</td>
+<td style="text-align:center">I**Interface</td>
+<td style="text-align:right">IHttpInterface.java</td>
+<td style="text-align:right">接口</td>
+</tr>
+<tr>
+<td>Abstract</td>
+<td style="text-align:center">Abs<em>*</em>.java</td>
+<td style="text-align:right">AbsModel.java</td>
+<td style="text-align:right">抽象类</td>
+</tr>
+<tr>
+<td>Dialog</td>
+<td style="text-align:center">**Dialog.java</td>
+<td style="text-align:right">MsgDialog.java</td>
+<td style="text-align:right">对话框</td>
+</tr>
+<tr>
+<td>其它</td>
+<td style="text-align:center">-</td>
+<td style="text-align:right">-</td>
+<td style="text-align:right">尽可能一看能明白类的类型</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<a id="more"></a>
+<h3 id="布局文件命名"><a href="#布局文件命名" class="headerlink" title="布局文件命名"></a>布局文件命名</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:center">规则</th>
+<th style="text-align:right">示例</th>
+<th style="text-align:right">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>activity</td>
+<td style="text-align:center">activity_<em>*</em>.xml</td>
+<td style="text-align:right">activity_home.xml</td>
+<td style="text-align:right">活动窗口布局文件</td>
+</tr>
+<tr>
+<td>fragment</td>
+<td style="text-align:center">fragment_<em>*</em>.xml</td>
+<td style="text-align:right">fragemnt_ news.xml</td>
+<td style="text-align:right">-</td>
+</tr>
+<tr>
+<td>include</td>
+<td style="text-align:center">include_<em>*</em>.xml</td>
+<td style="text-align:right">include_toolbar.xml</td>
+<td style="text-align:right">包含文件</td>
+</tr>
+<tr>
+<td>List-item</td>
+<td style="text-align:center">item_<em>*</em>.xml</td>
+<td style="text-align:right">item_new.xml</td>
+<td style="text-align:right">类表item布局文件</td>
+</tr>
+<tr>
+<td>dialog</td>
+<td style="text-align:center">dialog_<em>*</em>.xml</td>
+<td style="text-align:right">dialog_msg.xml</td>
+<td style="text-align:right">对话框</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="资源文件命名"><a href="#资源文件命名" class="headerlink" title="资源文件命名"></a>资源文件命名</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:center">规则</th>
+<th style="text-align:right">示例</th>
+<th style="text-align:right">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>图片</td>
+<td style="text-align:center">模块_**.png</td>
+<td style="text-align:right">user_header.png</td>
+<td style="text-align:right">用户头像</td>
+</tr>
+<tr>
+<td>string</td>
+<td style="text-align:center">string_<em>*</em>.xml</td>
+<td style="text-align:right">string_user.xml</td>
+<td style="text-align:right"></td>
+</tr>
+<tr>
+<td>color</td>
+<td style="text-align:center">color_<em>*</em>.xml</td>
+<td style="text-align:right">color_dialog.xml</td>
+<td style="text-align:right"></td>
+</tr>
+<tr>
+<td>attr</td>
+<td style="text-align:center">attr_<em>*</em>.xml</td>
+<td style="text-align:right">attr_listview.xml</td>
+<td style="text-align:right">自定义属性</td>
+</tr>
+<tr>
+<td>style</td>
+<td style="text-align:center">style_<em>*</em>.xml</td>
+<td style="text-align:right">style_btn.xml</td>
+<td style="text-align:right">样式</td>
+</tr>
+<tr>
+<td>array</td>
+<td style="text-align:center">array_<em>*</em>.xml</td>
+<td style="text-align:right">array_ico.xml</td>
+<td style="text-align:right">数组资源</td>
+</tr>
+<tr>
+<td>id</td>
+<td style="text-align:center">id_<em>*</em>.xml</td>
+<td style="text-align:right">id_user.xml</td>
+<td style="text-align:right">id资源</td>
+</tr>
+<tr>
+<td>drawable</td>
+<td style="text-align:center">drawable<em>模块</em>[控件或者使用说明].xml</td>
+<td style="text-align:right">drawable_user_btn.xml</td>
+<td style="text-align:right">drawable资源</td>
+</tr>
+<tr>
+<td>动画</td>
+<td style="text-align:center">anim<em>模块</em>[附加说明].xml</td>
+<td style="text-align:right">anim_userhead_scale.xm</td>
+<td style="text-align:right">用户头像缩放动画</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="变量命名"><a href="#变量命名" class="headerlink" title="变量命名"></a>变量命名</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:center">规则</th>
+<th style="text-align:right">示例</th>
+<th style="text-align:right">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>控件</td>
+<td style="text-align:center">下划线命名</td>
+<td style="text-align:right">btn_login,text_username</td>
+<td style="text-align:right">与资源id一致即可</td>
+</tr>
+<tr>
+<td>属性成员变量</td>
+<td style="text-align:center">驼峰命名</td>
+<td style="text-align:right">httpRequets,userModel</td>
+<td style="text-align:right">——</td>
+</tr>
+<tr>
+<td>布尔变量</td>
+<td style="text-align:center">is**</td>
+<td style="text-align:right">isLogin</td>
+<td style="text-align:right">-</td>
+</tr>
+<tr>
+<td>其它</td>
+<td style="text-align:center">-</td>
+<td style="text-align:right">-</td>
+<td style="text-align:right">尽可能可以识别变量类型与使用</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="包名命名"><a href="#包名命名" class="headerlink" title="包名命名"></a>包名命名</h3><p>项目总包名： com.duoralife.app<br>按摩块分包名如：商品<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">|——com.douralife.app.good【page】</div><div class="line">    |——bean【page】</div><div class="line">       |—— Good.java #javaben</div><div class="line">    |——ui【page】</div><div class="line">       |——GoodActivity.java</div><div class="line">       |——GoodDeatilsActivity.java</div><div class="line">    |——   【page】model 等其它包</div></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>类文件注释<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">/**</span></div><div class="line">     * 联系人: 黄国才 on $&#123;DATE&#125;.</div><div class="line">     * 联系邮箱：huangguocai@bocogx.com.cn·</div><div class="line">     * 描述 :商品活动页面，主要入口功能用户商品分享，加入购物车</div><div class="line">     * 备注: 网络请求方法 httpGoodsRequest 135行</div><div class="line">     */</div><div class="line">     <span class="keyword">public</span>  <span class="class"><span class="keyword">class</span> <span class="title">Good</span></span>&#123;</div><div class="line">     &#125;</div><div class="line">`</div></pre></td></tr></table></figure></p>
+<p>方法备注：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 获取用户名</div><div class="line"> * <span class="doctag">@param</span> userName 用户名</div><div class="line"> * <span class="doctag">@param</span> passWord 用户密码</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getName</span><span class="params">(String userName,String passWord)</span></span>&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>变量备注用以使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">/** 视图长度 */</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> intWidth;</div><div class="line"><span class="comment">/**用户名 */</span></div><div class="line"><span class="keyword">protected</span>  String userName;</div><div class="line"><span class="comment">/** 是否已登录*/</span></div><div class="line"><span class="keyword">public</span>  <span class="keyword">boolean</span> isLogin;</div><div class="line"><span class="comment">/** 登录按钮 */</span></div><div class="line"><span class="keyword">public</span> Button btn_login;</div><div class="line"><span class="comment">/** 订单类型 */</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ORDER_TYEP=<span class="number">1</span>;</div><div class="line"><span class="comment">/** 状态集合*/</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> Map&lt;String,String&gt; STATUS_MAP;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 联系人: 黄国才 on 2016/4/7 .</div><div class="line"> * 联系邮箱：huangguocai@bocogx.com.cn</div><div class="line"> * 描述 :订单状态枚举类型</div><div class="line"> * 备注: 6个订单状态，待支付，待收获，待评价....</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> ORDER_STATUS</div><div class="line">&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 支付成功</div><div class="line">     */</div><div class="line">    PAYSUCCESS,</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 待支付</div><div class="line">     */</div><div class="line">    WAIT_PAY,</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 获取用户名</div><div class="line"> * <span class="doctag">@param</span> userName 用户名</div><div class="line"> * <span class="doctag">@param</span> passWord 用户密码</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getName</span><span class="params">(String userName,String passWord)</span></span>&#123;</div><div class="line">    <span class="keyword">this</span>.userName=userName;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>android studio中可以使用快捷键查看变量说明与方法说明</p>
+<blockquote>
+<p>快捷键:Ctrl+Q<br>变量查看示例</p>
+</blockquote>
+<hr>
+<h3 id="方法命名规范"><a href="#方法命名规范" class="headerlink" title="方法命名规范"></a>方法命名规范</h3><p>尽可能写备注，并使用驼峰命名</p>
+<p>备注:</p>
+<blockquote>
+<ol>
+<li>数据持久化操作方法以：db开头如:dbUserList();查找用户列表。</li>
+</ol>
+<ul>
+<li>http请求以：http开头，如，httpUserlogin(String name,String password);//用户登录。并放在文件最末尾。</li>
+<li>init() 初始化方法。</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/hgcv.jpg" alt="黄国才 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎关注我的微信订阅号，每天给您推送优质的原创文章</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixinpay.png" alt="黄国才 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/alipay.png" alt="黄国才 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"># android</a>
+          
+            <a href="/tags/代码规范/" rel="tag"># 代码规范</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/23/vue2-0实践-如何实现微信授权登录/" rel="next" title="原创vue2.0实践-实现微信授权登录">
+                <i class="fa fa-chevron-left"></i> 原创vue2.0实践-实现微信授权登录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/24/2016/2016-11-24-git代码管理最常用的命令/" rel="prev" title="Git代码管理最常用的命令">
+                Git代码管理最常用的命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/24/2016/2016-11-24-android-安卓代码规范草稿/"
+           data-title="Android-安卓代码规范草稿" data-url="http://www.hgcv5.com/2016/11/24/2016/2016-11-24-android-安卓代码规范草稿/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://hotimg.esh1.com/FvPHO32SuR5vxh8vu3JsSJSLLLlF"
+               alt="黄国才" />
+          <p class="site-author-name" itemprop="name">黄国才</p>
+          <p class="site-description motion-element" itemprop="description">漫步向前的小前端</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/h31639347" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/u/1736558022" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://zhihu.com/people/hgcv5" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://git.oschina.net/hgcv5" target="_blank" title="oschina">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  oschina
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文件命名规范"><span class="nav-number">1.</span> <span class="nav-text">文件命名规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java类与接口文件"><span class="nav-number">1.0.1.</span> <span class="nav-text">java类与接口文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局文件命名"><span class="nav-number">1.0.2.</span> <span class="nav-text">布局文件命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源文件命名"><span class="nav-number">1.0.3.</span> <span class="nav-text">资源文件命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量命名"><span class="nav-number">1.0.4.</span> <span class="nav-text">变量命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包名命名"><span class="nav-number">1.0.5.</span> <span class="nav-text">包名命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注释"><span class="nav-number">1.0.6.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法命名规范"><span class="nav-number">1.0.7.</span> <span class="nav-text">方法命名规范</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">黄国才</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hgds"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("xVjGzFfI2aXAh5yma5LxEkHR-gzGzoHsz", "IXb1dyp6xiz5DGGmWYgOijzV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
