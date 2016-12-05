@@ -350,28 +350,18 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>最近在项目中使用了webservice,中间出现了一些错误。问题其实并不难解决，只是经验并不是很丰富，加上没怎么看错误日志导致排查错误过程中出现了很多问题</p>
 </blockquote>
 <h1 id="首先说一下webservice的简单调用代码。"><a href="#首先说一下webservice的简单调用代码。" class="headerlink" title="首先说一下webservice的简单调用代码。"></a>首先说一下webservice的简单调用代码。</h1><p>服务器断</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">try</span>&#123;</div><div class="line">    $client = <span class="keyword">new</span> SOAPClient(<span class="keyword">null</span>, <span class="keyword">array</span>(</div><div class="line">                        <span class="string">'location'</span> =&gt; <span class="string">'http://annex.domian.cn/service.php'</span>, <span class="comment">// 设置server路径</span></div><div class="line">                        <span class="string">'uri'</span> =&gt; <span class="string">'service.php'</span>,</div><div class="line">                    ));</div><div class="line">    <span class="keyword">echo</span> $client-&gt;__soapCall(<span class="string">'get'</span>,[]); <span class="comment">// 间接调用server方法</span></div><div class="line">&#125;<span class="keyword">catch</span>(SOAPFault $e)&#123;</div><div class="line">    <span class="keyword">echo</span> $e-&gt;getMessage();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>客户端代码</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Info</span></span></div><div class="line">&#123;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></div><div class="line">  &#123;</div><div class="line">  &#125;</div><div class="line">   <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">()</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"hhaha"</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">$s = <span class="keyword">new</span> SoapServer(<span class="keyword">null</span>,<span class="keyword">array</span>(<span class="string">'location'</span>=&gt;URL.<span class="string">"/service.php"</span>,<span class="string">'uri'</span>=&gt;<span class="string">'service.php'</span>));</div><div class="line">$s-&gt;setClass(<span class="string">"Info"</span>);</div><div class="line">$s-&gt;handle();</div><div class="line"> <span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<p>上面是一个简单的调用过程。</p>
-<h1 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h1><p>在使用过程中因为是服务调用，增加了代码调试的难度所以导致我花了汗多时间去排查。在排查过程中建议多查看php日志文件和服务器错误文件</p>
-<h2 id="错误一：DTD-are-not-supported-by-SOAP"><a href="#错误一：DTD-are-not-supported-by-SOAP" class="headerlink" title="错误一：DTD are not supported by SOAP"></a>错误一：DTD are not supported by SOAP</h2><p>出现这种错误当你排查服务器没问题时候，基本是你本地代码的问题， 检查协议是否都填写正确，你的location,和uri以及入参检查。</p>
-<h2 id="错误二：looks-like-we-got-no-XML-document"><a href="#错误二：looks-like-we-got-no-XML-document" class="headerlink" title="错误二：looks like we got no XML document"></a>错误二：looks like we got no XML document</h2><p>这个问题一般是服务器的问题，也就是服务器返回来了不是xml格式的文档，也就是服务器在执行过程中出了某些错误，导致没有按照soap协议返回，如果是接别人的服务，就要跟第三方协调了，如果是自己写的服务就要到服务代码去查看哪里出问题。</p>
-<h3 id="排查小技巧"><a href="#排查小技巧" class="headerlink" title="排查小技巧"></a>排查小技巧</h3><ul>
-<li>确定是否已经开启webservice服务，可以用<code>phpinfo</code>查看soap服务 - 在排查的过程中，要多看phplog日志，他可以快速帮助你排查问题，</li>
-<li>在排查过程中，可以先不调用webservice服务，先在服务端测试自己的业务逻辑是否能走通，比如我调了一天才发现是自己没有修改服务器的数据库密码，导致soap执行方法时候根本就没有效应，百度了好多说是配置问题，其实多少情况下是你的代码没写对或者配置错误</li>
-</ul>
-<p>通过查看日志(日志目录:可以在php.ini里搜索error_log配置路径)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[05-Dec-2016 02:53:13 Europe/Berlin] PHP Deprecated:  Automatically populating $HTTP_RAW_POST_DATA is deprecated and will be removed in a future version.</div><div class="line"> To avoid this warning set &apos;always_populate_raw_post_data&apos; to &apos;-1&apos; in php.ini and use the php://input stream instead. in Unknown on line 0</div><div class="line"> [05-Dec-2016 02:53:13 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent in Unknown on line 0</div><div class="line">[05-Dec-2016 02:53:13 Europe/Berlin] PHP Warning:  session_start(): Cannot send session cookie - headers already sent in common.inc.php on line 2</div><div class="line">[05-Dec-2016 02:53:13 Europe/Berlin] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent in common.inc.php on line 2</div></pre></td></tr></table></figure>
-<p>报了这个错，其实是说php高版本要弃用<code>$HTTP_RAW_POST_DATA</code> 建议是使用php://input获取数据，应该也是因为这个报错导致返回looks like we got no XML document。然后我就按照提示修改为-1,ok问题解决</p>
-<p>从上面的情况我们可以发现，多数问题为开发环境不一致导致的问题，如果避免错误这种问题而影响开发进度，因此我们引入了docker.之后我会在更多篇幅描述docker给我们带来的好处。或者查看我的标签或者分类<code>docker</code>学习。</p>
-
-          
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/05/2016/2016-12-05-php使用sopa-webservice中出现的错误排查/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
